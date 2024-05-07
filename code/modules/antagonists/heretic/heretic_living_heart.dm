@@ -4,20 +4,25 @@
  * Applied to a heart to turn it into a heretic's 'living heart'.
  * The living heart is what they use to track people they need to sacrifice.
  *
- * This component handles the action associated with it -
- * if the organ is removed, the action should be deleted
+ * This component handles the action and the spell associated with it -
+ * if the organ is removed, the both should be deleted
  */
 /datum/component/living_heart
 	/// The action we create and give to our heart.
 	var/datum/action/cooldown/track_target/action
+	/// The Mansus Grasp spell
+	var/datum/heretic_knowledge/spell/mansus_grasp/grasp
 
 /datum/component/living_heart/Initialize()
 	if(!isorgan(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	var/obj/item/organ/organ_parent = parent
+	var/datum/antagonist/heretic
 	action = new(src)
 	action.Grant(organ_parent.owner)
+	grasp = new(src)
+	organ_parent.owner.gain_knowledge(grasp)
 
 /datum/component/living_heart/Destroy(force)
 	QDEL_NULL(action)
@@ -218,3 +223,4 @@
 		balloon_message = "they're dead, " + balloon_message
 
 	return balloon_message
+

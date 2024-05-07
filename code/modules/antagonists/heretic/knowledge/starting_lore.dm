@@ -15,8 +15,10 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
 /*
  * The base heretic knowledge. Grants the Mansus Grasp spell.
+ * to be removed and applied to living heart instead
  */
-/datum/heretic_knowledge/spell/basic
+
+/datum/heretic_knowledge/spell/mansus_grasp
 	name = "Break of Dawn"
 	desc = "Starts your journey into the Mansus. \
 		Grants you the Mansus Grasp, a powerful and upgradable \
@@ -24,10 +26,6 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	spell_to_add = /datum/action/cooldown/spell/touch/mansus_grasp
 	cost = 0
 	route = PATH_START
-
-/datum/heretic_knowledge/spell/basic/New()
-	. = ..()
-	next_knowledge = subtypesof(/datum/heretic_knowledge/limited_amount/starting)
 
 /**
  * The Living Heart heretic knowledge.
@@ -188,6 +186,11 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 
 	return TRUE
 
+///This knowledge is the one that starts the knowledge tree
+/datum/heretic_knowledge/living_heart/New()
+	. = ..()
+	next_knowledge = subtypesof(/datum/heretic_knowledge/limited_amount/starting)
+
 /**
  * Allows the heretic to craft a spell focus.
  * They require a focus to cast advanced spells.
@@ -214,7 +217,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	route = PATH_START
 
 /**
- * Codex Cicatrixi is available at the start:
+ * Codex Cicatrix is available at the start:
  * This allows heretics to choose if they want to rush all the influences and take them stealthily, or
  * Construct a codex and take what's left with more points.
  * Another downside to having the book is strip searches, which means that it's not just a free nab, at least until you get exposed - and when you do, you'll probably need the faster drawing speed.

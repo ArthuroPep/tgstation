@@ -61,7 +61,7 @@
 	// An assoc list of [path string] to [number of nodes we found of that path].
 	var/list/paths = list()
 	// The starting knowledge node, we use this to deduce what main paths we have.
-	var/datum/heretic_knowledge/spell/basic/starter_node = new()
+	var/datum/heretic_knowledge/living_heart/starter_node = new()
 
 	// Go through and determine what paths exist from our base node.
 	for(var/datum/heretic_knowledge/possible_path as anything in starter_node.next_knowledge)
